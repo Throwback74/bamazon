@@ -46,7 +46,6 @@ var readItems = function () {
             
         } else {
             console.table(res);
-            console.log(item_ID);
             (console.log("...End List"));
             promptID(res);
             }
@@ -59,7 +58,7 @@ var promptID = function (res) {
             name: "selectPurchase",
             type: "list",
             message: "Select the ItemID for the item you would like to purchase",
-            choices: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] // item_ID
+            choices: item_ID //['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] 
         }, {
             name: "purchaseQuantity",
             type: "input",
