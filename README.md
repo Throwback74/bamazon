@@ -12,4 +12,4 @@
 
 ### See the app working:
 
-* (./assets/CLI-StoreFront.mp4)
+* [Link to Storefront Video](./assets/CLI-StoreFront.mp4)
