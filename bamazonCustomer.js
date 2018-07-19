@@ -13,13 +13,10 @@ var quantityBought = 0;
 
 var connection = mysql.createConnection({
     host: "localhost",
-
     // Your port; if not 3306
     port: 3306,
-
     // Your username
     user: "root",
-
     // Your password
     password: "Password",
     database: "bamazonDB"
@@ -71,16 +68,14 @@ var promptID = function (res) {
                 purchaseItem(itemPurchased, quantityBought, res);
             } else {
                 console.log("Please select an item ID");
-            }
-            
+            }            
         }, function (error) {
             console.error('uh oh: ', error); // 'uh oh: something bad happened’
-        });
+            });
 };
 
 var purchaseItem = function (itemChoice, quantityPurchased, res) {
-    var itemChoiceIndex = (itemChoice-1);
-    
+    var itemChoiceIndex = (itemChoice-1);    
     if (quantityPurchased <= quantity[itemChoiceIndex]) {
         console.log("Processing Purchase...\n");
         quantity = quantity[itemChoiceIndex] - quantityPurchased;
@@ -106,3 +101,10 @@ var purchaseItem = function (itemChoice, quantityPurchased, res) {
     }
     connection.end();
 };
+
+// module.exports = {
+//     connection: connection,
+    
+// };
+
+// module.exports.connection = connection;
