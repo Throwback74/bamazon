@@ -64,7 +64,8 @@ var promptID = function (res) {
             itemPurchased = parseInt(purchase.selectPurchase);
             quantityBought = parseInt(purchase.purchaseQuantity);
             console.log('Buying: ' + quantityBought + " " + item[itemPurchased-1]); //fix line to ref item name
-            if (itemPurchased < 11) {
+            console.log(res.length);
+            if (itemPurchased <= res.length) {
                 purchaseItem(itemPurchased, quantityBought, res);
             } else {
                 console.log("Please select an item ID");
@@ -101,10 +102,3 @@ var purchaseItem = function (itemChoice, quantityPurchased, res) {
     }
     connection.end();
 };
-
-// module.exports = {
-//     connection: connection,
-    
-// };
-
-// module.exports.connection = connection;

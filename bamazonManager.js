@@ -59,9 +59,13 @@ var checkInv = function() {
                 console.log(choice);
                 if(choice.chooseProcess === 'View Products for Sale'){
                     console.table(res);
+                    // console.log(query.sql);
+                    // checkInv();
+                    continueUpdate();
                 }
                 else if(choice.chooseProcess === 'View Low Inventory'){
                     lowInv(res);
+                    continueUpdate();
                 }
                 else if(choice.chooseProcess === 'Add to Inventory'){
                     lowInv(res);
@@ -80,8 +84,11 @@ var checkInv = function() {
                         console.log("Purchased " + quantityOrdered + " of " + lowItem[updatedItem-1] + " and added to stock");
                         if(true){
                             addInventory(updatedItem, quantityOrdered, res);
+                            // console.log(query.sql);
                         }
+                        continueUpdate();
                     });
+                    
                 }
                 else if(choice.chooseProcess === 'Add New Product'){
                     console.table(res);
@@ -92,10 +99,6 @@ var checkInv = function() {
                     checkInv();
                 }
             });
-        // }
-        // else {
-        //     console.log("oops: " + err);
-        // }
     });
 };
 
@@ -113,11 +116,11 @@ var addInventory = function(updatedItem, quantityOrdered, res) {
             }
         ],
         function (err, res) {
-            console.log(lowItem[updatedItemIndex] + " Restocked!\n");
-            // console.log('Total: $' + (price[itemChoiceIndex] * quantityPurchased));
+            console.log("\n" + lowItem[updatedItemIndex] + " Restocked!\n");
         }
     );
-    console.log(query.sql);
+    // console.log(query.sql);
+    // connection.end();
 };
 
 var addNewInvItem = function(res) {
@@ -154,6 +157,23 @@ var addNewInvItem = function(res) {
         );
     });
 };
+
+var continueUpdate = function() {
+    inquirer.prompt([{
+        name: "continueUpdating",
+        type: "confirm",
+        message: "Would you like to continue and make an order?"
+    }]).then(function(reQuery) {
+        console.log(reQuery);
+        if(reQuery.continueUpdating === true) {
+            checkInv();
+        }else {
+            console.log("Thank you!");
+            connection.end();
+        }
+    });
+};
+
 
 // var lowInv = function(res) {
 //     var invReduction = res.filter(invReduce);
