@@ -12,7 +12,6 @@ function invReduce(value, index, array) {
 }
 var lowInv = function(res) {
     var invReduction = res.filter(invReduce);
-    console.log(invReduction);
     console.table(invReduction);
         for(var h = 0; h < invReduction.length; h++){
             if(invReduction[h].stock_quantity < 5){
@@ -22,10 +21,7 @@ var lowInv = function(res) {
                 lowItemPrice.push(invReduction[h].price);
                 lowItemInv.push(invReduction[h].stock_quantity);
             }
-            
-            // console.log("ID: " + lowItemID + "item: " + lowItem + "Category: " + lowItemCat + "Price: " + lowItemPrice + "Inventory: " + lowItemInv);
     }   
-    console.log(lowItemID);
 };
 
 var connection = mysql.createConnection({
@@ -49,7 +45,6 @@ connection.connect(function (err) {
 var checkInv = function() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        // console.log("res" + JSON.stringify(res));
             inquirer.prompt([{
                 name: "chooseProcess",
                 type: "list",
@@ -59,8 +54,6 @@ var checkInv = function() {
                 console.log(choice);
                 if(choice.chooseProcess === 'View Products for Sale'){
                     console.table(res);
-                    // console.log(query.sql);
-                    // checkInv();
                     continueUpdate();
                 }
                 else if(choice.chooseProcess === 'View Low Inventory'){
@@ -84,7 +77,6 @@ var checkInv = function() {
                         console.log("Purchased " + quantityOrdered + " of " + lowItem[updatedItem-1] + " and added to stock");
                         if(true){
                             addInventory(updatedItem, quantityOrdered, res);
-                            // console.log(query.sql);
                         }
                         continueUpdate();
                     });
@@ -119,8 +111,6 @@ var addInventory = function(updatedItem, quantityOrdered, res) {
             console.log("\n" + lowItem[updatedItemIndex] + " Restocked!\n");
         }
     );
-    // console.log(query.sql);
-    // connection.end();
 };
 
 var addNewInvItem = function(res) {
@@ -164,7 +154,6 @@ var continueUpdate = function() {
         type: "confirm",
         message: "Would you like to continue and make an order?"
     }]).then(function(reQuery) {
-        console.log(reQuery);
         if(reQuery.continueUpdating === true) {
             checkInv();
         }else {
@@ -173,27 +162,3 @@ var continueUpdate = function() {
         }
     });
 };
-
-
-// var lowInv = function(res) {
-//     var invReduction = res.filter(invReduce);
-//     console.table(invReduction);
-    // for(var h = 0; h < res.length; h++){
-    //     if(res[h].stock_quantity < 5){
-    //     lowItemID.push(JSON.stringify(res[h].item_id));
-    //     lowItem.push(res[h].product_name);
-    //     lowItemCat.push(res[h].department_name);
-    //     lowItemPrice.push(res[h].price);
-    //     lowItemInv.push(res[h].stock_quantity);
-    //     }
-    // }    
-// };
-
-// var numbers = [4, 9, 16, 25];
-// var over18 = numbers.filter(myFunction);
-
-// function myFunction(value, index, array) {
-//     return value > 18;
-// }
-
-// var invReduction = results.filter(invReduce);
